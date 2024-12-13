@@ -1,0 +1,8 @@
+E:\Lectures\Fourth\ year\First\ term\Embedded\ 3\Project\phase1\Debug\BrowseInfo\startup_ewarm.pbi: \
+  E:\Lectures\Fourth\ year\First\ term\Embedded\ 3\Project\phase1\startup_ewarm.c \
+  E:\Apps\IAR\arm\inc\c\stdint.h E:\Apps\IAR\arm\inc\c\ycheck.h \
+  E:\Apps\IAR\arm\inc\c\yvals.h E:\Apps\IAR\arm\inc\c\DLib_Defaults.h \
+  E:\Apps\IAR\arm\inc\c\DLib_Config_Normal.h \
+  E:\Apps\IAR\arm\inc\c\DLib_Product.h \
+  E:\Dependencies\ti\TivaWare_C_Series-2.2.0.295\inc\hw_nvic.h \
+  E:\Dependencies\ti\TivaWare_C_Series-2.2.0.295\inc\hw_types.h
