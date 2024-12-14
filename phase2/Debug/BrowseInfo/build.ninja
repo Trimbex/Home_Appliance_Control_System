@@ -1,0 +1,61 @@
+##IAR Ninja build file
+
+
+#Rules
+rule COMPILER_XCL
+  command = D$:\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\XclFileGenerator.exe $xclcommand -f "$rspfile_name"
+  description = IAR_NEW_TOOL+++COMPILER_XCL+++$in+++D$:\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\XclFileGenerator.exe $flags
+  rspfile = $rspfile_name
+  rspfile_content = $flags
+
+rule INDEXER
+  command = D$:\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\SourceIndexer.exe $flags
+  depfile = $out.dep
+  description = IAR_NEW_TOOL+++INDEXER+++$out+++D$:\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\SourceIndexer.exe $flags
+
+rule MAKEBROWSE
+  command = D$:\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\makeBrowseData.exe $flags
+  description = IAR_NEW_TOOL+++MAKEBROWSE+++$out+++D$:\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\makeBrowseData.exe $flags
+
+rule PDBLINK
+  command = D$:\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\PbdLink.exe $flags
+  description = IAR_NEW_TOOL+++PDBLINK+++$out+++D$:\IAR$ Systems\Embedded$ Workbench$ 9.0\common\bin\PbdLink.exe $flags
+
+
+
+#Build steps
+build D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\DIO.xcl : COMPILER_XCL 
+  xclcommand = -source_file "D$:\Fall$ 24$ Projects\Embedded$ Project\DIO.c" -xcl_file "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\DIO.xcl" -macro_file "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\DIO.tmp" -icc_path "D$:\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = "D$:\Fall$ 24$ Projects\Embedded$ Project\DIO.c" -D ewarm -D PART_TM4C123GH6PM -D TARGET_IS_TM4C123_RB1 -o "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\Obj\\" --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M4 -e --fpu=VFPv4_sp --dlib_config "D$:\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Normal.h" -I D$:\ti\TivaWare_C_Series-2.2.0.295\ -Ol --predef_macros "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\DIO.tmp"
+  rspfile_name = D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\DIO.xcl.rsp
+
+build D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\main.xcl : COMPILER_XCL 
+  xclcommand = -source_file "D$:\Fall$ 24$ Projects\Embedded$ Project\main.c" -xcl_file "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\main.xcl" -macro_file "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\main.tmp" -icc_path "D$:\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = "D$:\Fall$ 24$ Projects\Embedded$ Project\main.c" -D ewarm -D PART_TM4C123GH6PM -D TARGET_IS_TM4C123_RB1 -o "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\Obj\\" --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M4 -e --fpu=VFPv4_sp --dlib_config "D$:\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Normal.h" -I D$:\ti\TivaWare_C_Series-2.2.0.295\ -Ol --predef_macros "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\main.tmp"
+  rspfile_name = D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\main.xcl.rsp
+
+build D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\systc.xcl : COMPILER_XCL 
+  xclcommand = -source_file "D$:\Fall$ 24$ Projects\Embedded$ Project\systc.c" -xcl_file "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\systc.xcl" -macro_file "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\systc.tmp" -icc_path "D$:\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\bin\iccarm.exe"
+  flags = "D$:\Fall$ 24$ Projects\Embedded$ Project\systc.c" -D ewarm -D PART_TM4C123GH6PM -D TARGET_IS_TM4C123_RB1 -o "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\Obj\\" --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M4 -e --fpu=VFPv4_sp --dlib_config "D$:\IAR$ Systems\Embedded$ Workbench$ 9.0\arm\inc\c\DLib_Config_Normal.h" -I D$:\ti\TivaWare_C_Series-2.2.0.295\ -Ol --predef_macros "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\systc.tmp"
+  rspfile_name = D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\systc.xcl.rsp
+
+build D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\DIO.pbi : INDEXER D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\DIO.xcl |  $
+D$:\Fall$ 24$ Projects\Embedded$ Project\DIO.c
+  flags = "-out=D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\DIO.pbi" -f "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\DIO.xcl"
+
+build D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\main.pbi : INDEXER D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\main.xcl |  $
+D$:\Fall$ 24$ Projects\Embedded$ Project\main.c
+  flags = "-out=D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\main.pbi" -f "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\main.xcl"
+
+build D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\systc.pbi : INDEXER D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\systc.xcl |  $
+D$:\Fall$ 24$ Projects\Embedded$ Project\systc.c
+  flags = "-out=D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\systc.pbi" -f "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\systc.xcl"
+
+build D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\test.pbw : MAKEBROWSE D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\test.pbd
+  flags = "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\test.pbd" -output "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\test.pbw"
+
+build D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\test.pbd : PDBLINK D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\DIO.pbi |  $
+D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\main.pbi $
+D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\systc.pbi
+  flags = -M "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\test.pbd" "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\DIO.pbi" "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\main.pbi" "D$:\Fall$ 24$ Projects\Embedded$ Project\Debug\BrowseInfo\systc.pbi"
+
