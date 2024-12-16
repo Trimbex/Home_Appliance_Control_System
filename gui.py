@@ -1,8 +1,8 @@
 import tkinter as tk
+from tkinter import ttk
 import serial
 import threading
 import time
-from tkinter import PhotoImage
 
 # Initialize serial communication
 ser = serial.Serial('COM7', 9600, timeout=1)
@@ -16,17 +16,34 @@ def toggle_plug():
     ser.write(b'P')  # Send 'P' to toggle the plug
 
 def receive_uart():
-    """Continuously read from UART and update the GUI."""
+    """Continuously read from UART and update the table with door states and timestamps."""
     while True:
         if ser.in_waiting > 0:
             message = ser.readline().decode('utf-8').strip()
-            display_message(message)
+            update_door_state(message)
 
-def display_message(message):
-    """Update the text widget with a new message."""
+def update_door_state(door_state):
+    """Update the table with the door state and timestamp."""
     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")  # Get the current timestamp
-    text_widget.insert(tk.END, f"[{timestamp}] {message}\n")
-    text_widget.see(tk.END)  # Auto-scroll to the latest message
+
+    # Insert the new data into the treeview
+    treeview.insert('', 'end', values=(timestamp, door_state))
+
+    # Color the row based on the door state (green for open, red for closed)
+    if door_state.lower() == "open":
+        treeview.tag_configure("open", background="green", foreground="white")
+        treeview.item(treeview.get_children()[-1], tags=("open",))
+    else:
+        treeview.tag_configure("closed", background="red", foreground="white")
+        treeview.item(treeview.get_children()[-1], tags=("closed",))
+
+def update_thermometer(temperature):
+    """Update the thermometer bar based on the current temperature."""
+    # Calculate the height of the thermometer based on the temperature (0 to 100)
+    height = max(0, min(100, temperature))  # Limit the value between 0 and 100
+    # The red bar's y2 value should decrease as temperature increases (i.e., fill the thermometer from bottom to top)
+    thermometer_canvas.coords(thermometer_fill, 10, 150 - height, 40, 150)
+    thermometer_label.config(text=f"{temperature}°C")
 
 # Create the GUI
 root = tk.Tk()
@@ -37,28 +54,65 @@ root.geometry("600x500")  # Set the window size
 frame = tk.Frame(root, padx=20, pady=20)
 frame.pack(expand=True, fill="both")
 
-# Placeholder for images (can be changed to actual images later)
-image_label = tk.Label(frame, text="Image Placeholder", width=20, height=10, relief="solid", anchor="center")
-image_label.grid(row=0, column=0, rowspan=3, padx=10, pady=10)
+# Create a Treeview widget for displaying the table with door states and timestamps
+columns = ('Timestamp', 'Door State')
+treeview = ttk.Treeview(frame, columns=columns, show='headings', height=10)
 
-# Create a text widget for displaying messages with timestamp
-text_widget = tk.Text(frame, height=10, width=40, font=("Arial", 12), wrap="word")
-text_widget.grid(row=0, column=1, rowspan=3, padx=10, pady=10)
+# Define column headings
+treeview.heading('Timestamp', text='Timestamp')
+treeview.heading('Door State', text='Door State')
+
+# Set column widths
+treeview.column('Timestamp', width=180)
+treeview.column('Door State', width=100)
+
+# Add scrollbar
+scrollbar = ttk.Scrollbar(frame, orient="vertical", command=treeview.yview)
+scrollbar.grid(row=0, column=2, sticky='ns')
+treeview.configure(yscrollcommand=scrollbar.set)
+
+# Grid layout for Treeview
+treeview.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
 
 # Create a label for the title
 label = tk.Label(frame, text="Toggle Controller", font=("Arial", 18, "bold"))
-label.grid(row=0, column=2, padx=10, pady=10)
+label.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
 
 # Toggle Lamp Button
 toggle_lamp_button = tk.Button(frame, text="Toggle Lamp", command=toggle_lamp, font=("Arial", 14), bg="#4CAF50", fg="white", relief="raised", height=2, width=15)
-toggle_lamp_button.grid(row=1, column=2, padx=10, pady=10)
+toggle_lamp_button.grid(row=2, column=0, padx=10, pady=10)
 
 # Toggle Plug Button
 toggle_plug_button = tk.Button(frame, text="Toggle Plug", command=toggle_plug, font=("Arial", 14), bg="#FF5733", fg="white", relief="raised", height=2, width=15)
-toggle_plug_button.grid(row=2, column=2, padx=10, pady=10)
+toggle_plug_button.grid(row=2, column=1, padx=10, pady=10)
+
+# Create the thermometer display
+thermometer_frame = tk.Frame(root, padx=20, pady=20)
+thermometer_frame.pack(side="right", padx=20)
+
+thermometer_label = tk.Label(thermometer_frame, text="Temperature", font=("Arial", 16))
+thermometer_label.pack()
+
+thermometer_canvas = tk.Canvas(thermometer_frame, width=50, height=200, bg="lightgray")
+thermometer_canvas.pack()
+
+# Draw the thermometer outline
+thermometer_canvas.create_rectangle(10, 10, 40, 150, outline="black", width=2)
+
+# Create the filled part of the thermometer (starts empty)
+thermometer_fill = thermometer_canvas.create_rectangle(10, 150, 40, 150, fill="red")
 
 # Start a thread for receiving UART messages
 threading.Thread(target=receive_uart, daemon=True).start()
+
+# Simulating temperature update (you can replace this with actual data)
+def simulate_temperature():
+    for temp in range(0, 101, 5):  # Simulate temperature from 0 to 100°C
+        update_thermometer(temp)
+        time.sleep(1)
+
+# Simulate temperature updates in the background
+threading.Thread(target=simulate_temperature, daemon=True).start()
 
 # Run the GUI event loop
 root.mainloop()
