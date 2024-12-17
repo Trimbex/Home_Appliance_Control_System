@@ -1,0 +1,27 @@
+# ninja log v5
+76	134	7560588826059074	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/test.pbd	306e894c9e6b95d7
+1	65	7558075900000000	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/systc.xcl	58d50ff9654a073f
+0	63	7558067450000000	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/main.xcl	9174a7ec93a20398
+0	73	7560588825435420	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/main.pbi	3196de077c69f77b
+138	670	7560588831213256	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/test.pbw	15bf677caa430126
+70	138	7558075902945473	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/systc.pbi	ad7b6262c6337e9d
+1	62	7558076570000000	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/DIO.xcl	ac80cb859ed54ed1
+67	132	7558076580322849	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/DIO.pbi	de020685b64569e7
+1	82	7560588932877055	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/main.pbi	3196de077c69f77b
+84	142	7560588933499347	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/test.pbd	306e894c9e6b95d7
+145	702	7560588938872876	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/test.pbw	15bf677caa430126
+1	68	7560590749301574	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/main.pbi	3196de077c69f77b
+73	130	7560590749931207	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/test.pbd	306e894c9e6b95d7
+1	519	7560590809431888	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/test.pbw	15bf677caa430126
+0	69	7560590910886826	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/main.pbi	3196de077c69f77b
+71	123	7560590911449438	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/test.pbd	306e894c9e6b95d7
+128	641	7560590916366529	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/test.pbw	15bf677caa430126
+1	79	7560594134085199	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/main.pbi	3196de077c69f77b
+81	137	7560594134679937	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/test.pbd	306e894c9e6b95d7
+140	667	7560594139739408	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/test.pbw	15bf677caa430126
+0	72	7560611379346886	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/main.pbi	3196de077c69f77b
+76	129	7560611379936666	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/test.pbd	306e894c9e6b95d7
+133	647	7560611384910216	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/test.pbw	15bf677caa430126
+0	72	7560615709384262	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/main.pbi	3196de077c69f77b
+76	130	7560615709973517	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/test.pbd	306e894c9e6b95d7
+134	678	7560615715156111	D:/Fall 24 Projects/Embedded Project/Debug/BrowseInfo/test.pbw	15bf677caa430126
