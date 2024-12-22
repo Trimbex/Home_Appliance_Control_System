@@ -16,11 +16,21 @@ def toggle_plug():
     ser.write(b'P')  # Send 'P' to toggle the plug
 
 def receive_uart():
-    """Continuously read from UART and update the table with door states and timestamps."""
+    """Continuously read from UART and update the table with door states and temperature."""
     while True:
         if ser.in_waiting > 0:
             message = ser.readline().decode('utf-8').strip()
-            update_door_state(message)
+            
+            # Handle temperature messages
+            if message.startswith("TEMP:"):
+                try:
+                    temperature = float(message.split(":")[1].strip("°C"))
+                    update_thermometer(temperature)
+                except (IndexError, ValueError):
+                    print(f"Invalid temperature message: {message}")
+            # Handle door state messages
+            elif message in ["OPEN", "CLOSED"]:
+                update_door_state(message)
 
 def update_door_state(door_state):
     """Update the table with the door state and timestamp."""
@@ -30,10 +40,10 @@ def update_door_state(door_state):
     treeview.insert('', 'end', values=(timestamp, door_state))
 
     # Color the row based on the door state (green for open, red for closed)
-    if door_state.lower() == "open":
+    if door_state == "OPEN":
         treeview.tag_configure("open", background="green", foreground="white")
         treeview.item(treeview.get_children()[-1], tags=("open",))
-    else:
+    elif door_state == "CLOSED":
         treeview.tag_configure("closed", background="red", foreground="white")
         treeview.item(treeview.get_children()[-1], tags=("closed",))
 
@@ -41,14 +51,13 @@ def update_thermometer(temperature):
     """Update the thermometer bar based on the current temperature."""
     # Calculate the height of the thermometer based on the temperature (0 to 100)
     height = max(0, min(100, temperature))  # Limit the value between 0 and 100
-    # The red bar's y2 value should decrease as temperature increases (i.e., fill the thermometer from bottom to top)
     thermometer_canvas.coords(thermometer_fill, 10, 150 - height, 40, 150)
-    thermometer_label.config(text=f"{temperature}°C")
+    thermometer_label.config(text=f"{temperature:.1f}°C")
 
 # Create the GUI
 root = tk.Tk()
 root.title("Toggle Controller")
-root.geometry("600x500")  # Set the window size
+root.geometry("600x500")
 
 # Create a frame for organizing the widgets
 frame = tk.Frame(root, padx=20, pady=20)
@@ -104,15 +113,6 @@ thermometer_fill = thermometer_canvas.create_rectangle(10, 150, 40, 150, fill="r
 
 # Start a thread for receiving UART messages
 threading.Thread(target=receive_uart, daemon=True).start()
-
-# Simulating temperature update (you can replace this with actual data)
-def simulate_temperature():
-    for temp in range(0, 101, 5):  # Simulate temperature from 0 to 100°C
-        update_thermometer(temp)
-        time.sleep(1)
-
-# Simulate temperature updates in the background
-threading.Thread(target=simulate_temperature, daemon=True).start()
 
 # Run the GUI event loop
 root.mainloop()
