@@ -5,7 +5,7 @@ import threading
 import time
 
 # Initialize serial communication
-ser = serial.Serial('COM7', 9600, timeout=1)
+ser = serial.Serial('COM6', 9600, timeout=1)
 
 def toggle_lamp():
     """Send the toggle command to the embedded system."""
