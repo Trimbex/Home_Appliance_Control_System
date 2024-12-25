@@ -357,4 +357,3 @@ void delayUs(uint32_t ui32Us)
 {
   SysCtlDelay(ui32Us * (SysCtlClockGet() / 3 / 1000000)); //us delay
 }
-    
