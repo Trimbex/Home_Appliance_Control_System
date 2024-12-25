@@ -1,0 +1,61 @@
+##IAR Ninja build file
+
+
+#Rules
+rule COMPILER_XCL
+  command = E$:\Apps\IAR\common\bin\XclFileGenerator.exe $xclcommand -f "$rspfile_name"
+  description = IAR_NEW_TOOL+++COMPILER_XCL+++$in
+  rspfile = $rspfile_name
+  rspfile_content = $flags
+
+rule INDEXER
+  command = E$:\Apps\IAR\common\bin\SourceIndexer.exe $flags
+  depfile = $out.dep
+  description = IAR_NEW_TOOL+++INDEXER+++$out
+
+rule MAKEBROWSE
+  command = E$:\Apps\IAR\common\bin\makeBrowseData.exe $flags
+  description = IAR_NEW_TOOL+++MAKEBROWSE+++$out
+
+rule PDBLINK
+  command = E$:\Apps\IAR\common\bin\PbdLink.exe $flags
+  description = IAR_NEW_TOOL+++PDBLINK+++$out
+
+
+
+#Build steps
+build E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\DIO.xcl : COMPILER_XCL 
+  xclcommand = -source_file "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\DIO.c" -xcl_file "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\DIO.xcl" -macro_file "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\DIO.tmp" -icc_path E$:\Apps\IAR\arm\bin\iccarm.exe
+  flags = "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\DIO.c" -D ewarm -D PART_TM4C123GH6PM -D TARGET_IS_TM4C123_RB1 -o "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\Obj\\" --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M4 -e --fpu=VFPv4_sp --dlib_config E$:\Apps\IAR\arm\inc\c\DLib_Config_Normal.h -I "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\\" -I E$:\Apps\IAR\arm\inc\TexasInstruments\ -I E$:\Apps\IAR\arm\CMSIS\Core\Include\ -I E$:\ti\iar\ -I E$:\ti\TivaWare_C_Series-2.2.0.295\ -Ol --predef_macros "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\DIO.tmp"
+  rspfile_name = E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\DIO.xcl.rsp
+
+build E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\main.xcl : COMPILER_XCL 
+  xclcommand = -source_file "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\main.c" -xcl_file "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\main.xcl" -macro_file "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\main.tmp" -icc_path E$:\Apps\IAR\arm\bin\iccarm.exe
+  flags = "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\main.c" -D ewarm -D PART_TM4C123GH6PM -D TARGET_IS_TM4C123_RB1 -o "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\Obj\\" --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M4 -e --fpu=VFPv4_sp --dlib_config E$:\Apps\IAR\arm\inc\c\DLib_Config_Normal.h -I "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\\" -I E$:\Apps\IAR\arm\inc\TexasInstruments\ -I E$:\Apps\IAR\arm\CMSIS\Core\Include\ -I E$:\ti\iar\ -I E$:\ti\TivaWare_C_Series-2.2.0.295\ -Ol --predef_macros "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\main.tmp"
+  rspfile_name = E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\main.xcl.rsp
+
+build E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\systc.xcl : COMPILER_XCL 
+  xclcommand = -source_file "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\systc.c" -xcl_file "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\systc.xcl" -macro_file "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\systc.tmp" -icc_path E$:\Apps\IAR\arm\bin\iccarm.exe
+  flags = "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\systc.c" -D ewarm -D PART_TM4C123GH6PM -D TARGET_IS_TM4C123_RB1 -o "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\Obj\\" --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling --debug --endian=little --cpu=Cortex-M4 -e --fpu=VFPv4_sp --dlib_config E$:\Apps\IAR\arm\inc\c\DLib_Config_Normal.h -I "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\\" -I E$:\Apps\IAR\arm\inc\TexasInstruments\ -I E$:\Apps\IAR\arm\CMSIS\Core\Include\ -I E$:\ti\iar\ -I E$:\ti\TivaWare_C_Series-2.2.0.295\ -Ol --predef_macros "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\systc.tmp"
+  rspfile_name = E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\systc.xcl.rsp
+
+build E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\DIO.pbi : INDEXER E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\DIO.xcl |  $
+E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\DIO.c
+  flags = "-out=E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\DIO.pbi" -f "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\DIO.xcl"
+
+build E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\main.pbi : INDEXER E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\main.xcl |  $
+E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\main.c
+  flags = "-out=E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\main.pbi" -f "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\main.xcl"
+
+build E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\systc.pbi : INDEXER E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\systc.xcl |  $
+E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\systc.c
+  flags = "-out=E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\systc.pbi" -f "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\systc.xcl"
+
+build E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\GUI_phase.pbw : MAKEBROWSE E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\GUI_phase.pbd
+  flags = "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\GUI_phase.pbd" -output "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\GUI_phase.pbw"
+
+build E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\GUI_phase.pbd : PDBLINK E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\DIO.pbi |  $
+E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\main.pbi $
+E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\systc.pbi
+  flags = -M "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\GUI_phase.pbd" "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\DIO.pbi" "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\main.pbi" "E$:\Lectures\Fourth$ year\First$ term\Embedded$ 3\Project\GUI_phase\Debug\BrowseInfo\systc.pbi"
+
