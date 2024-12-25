@@ -43,8 +43,3 @@ The goal of this project is to develop a small prototype for a mobile-based home
 
 - Ensure that all wires are hidden and the components are securely mounted for safety.
 - The manual switch for the lamp should always remain functional, allowing the lamp to be controlled even without the app.
-
-## License
-
-This project is open-source and free to use for educational purposes.
-
