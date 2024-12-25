@@ -19,9 +19,9 @@
 #define LED_LAMP    (1U << 1)   // PF1 - Lamp
 #define PLUG_CTRL   (1U << 2)   // PF2 - Plug control
 #define MAG_SWITCH  (1U << 0)   // PB0 - Magnetic switch input
-#define PUSH_BUTTON (1U << 4)   //PB4 - push button for lamp control
+#define PUSH_BUTTON (1U << 1)   // PB1 - push button for lamp control
 #define BUZZER      (1U << 4)   // PF4 - Buzzer
-#define TEMP_LIMIT    28.0      // Define your temperature limit here
+#define TEMP_LIMIT    29.0      // Define your temperature limit here
 
 #define UART_BASE UART0_BASE
 
@@ -254,7 +254,7 @@ int main(void) {
               // Print the messages
               printmsg(temperatureStr);
               // *Buzzer Control Logic Starts Here*
-              if (temperature > TEMP_LIMIT) {
+              if (temperature >= TEMP_LIMIT) {
                   GPIO_PORTF_DATA_R |= BUZZER;  // Activate buzzer
                   printmsg("Temperature limit exceeded! Buzzer ON.\n");
               } else {
