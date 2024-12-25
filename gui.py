@@ -47,17 +47,28 @@ def update_door_state(door_state):
         treeview.tag_configure("closed", background="red", foreground="white")
         treeview.item(treeview.get_children()[-1], tags=("closed",))
 
+
+# Create the GUI
+root = tk.Tk()
+root.title("Toggle Controller")
+root.geometry("600x500")
+
+# Add a label for the warning in the GUI
+warning_label = tk.Label(root, text="", font=("Arial", 14), fg="red")
+warning_label.pack(pady=10)
+
 def update_thermometer(temperature):
     """Update the thermometer bar based on the current temperature."""
     # Calculate the height of the thermometer based on the temperature (0 to 100)
     height = max(0, min(100, temperature))  # Limit the value between 0 and 100
     thermometer_canvas.coords(thermometer_fill, 10, 150 - height, 40, 150)
     thermometer_label.config(text=f"{temperature:.1f}°C")
-
-# Create the GUI
-root = tk.Tk()
-root.title("Toggle Controller")
-root.geometry("600x500")
+    
+    # Display a warning if the temperature exceeds 32°C
+    if temperature > 27.0:
+        warning_label.config(text="Warning: Temperature exceeds 32°C!")
+    else:
+        warning_label.config(text="")
 
 # Create a frame for organizing the widgets
 frame = tk.Frame(root, padx=20, pady=20)
