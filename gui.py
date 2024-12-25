@@ -7,9 +7,22 @@ import time
 # Initialize serial communication
 ser = serial.Serial('COM6', 9600, timeout=1)
 
+# Global variable to track the lamp state
+lamp_state = "OFF"  # Default state
+
 def toggle_lamp():
     """Send the toggle command to the embedded system."""
+    global lamp_state
     ser.write(b'T')  # Send 'T' to toggle the LED
+    
+    # Toggle the state
+    if lamp_state == "OFF":
+        lamp_state = "ON"
+    else:
+        lamp_state = "OFF"
+    
+    # Update the lamp state label
+    lamp_state_label.config(text=f"Lamp State: {lamp_state}")
 
 def toggle_plug():
     """Send the toggle command to the embedded system."""
@@ -31,6 +44,9 @@ def receive_uart():
             # Handle door state messages
             elif message in ["OPEN", "CLOSED"]:
                 update_door_state(message)
+            # Handle lamp state messages (assuming the embedded system sends it)
+            elif message in ["LAMP_ON", "LAMP_OFF"]:
+                update_lamp_state(message)
 
 def update_door_state(door_state):
     """Update the table with the door state and timestamp."""
@@ -47,6 +63,28 @@ def update_door_state(door_state):
         treeview.tag_configure("closed", background="red", foreground="white")
         treeview.item(treeview.get_children()[-1], tags=("closed",))
 
+def update_lamp_state(message):
+    """Update the lamp state label based on the received message."""
+    global lamp_state
+    if message == "LAMP_ON":
+        lamp_state = "ON"
+    elif message == "LAMP_OFF":
+        lamp_state = "OFF"
+    lamp_state_label.config(text=f"Lamp State: {lamp_state}")
+
+def update_thermometer(temperature):
+    """Update the thermometer bar based on the current temperature."""
+    # Calculate the height of the thermometer based on the temperature (0 to 100)
+    height = max(0, min(100, temperature))  # Limit the value between 0 and 100
+    thermometer_canvas.coords(thermometer_fill, 10, 150 - height, 40, 150)
+    thermometer_label.config(text=f"{temperature:.1f}°C")
+    
+    # Display a warning if the temperature exceeds limit
+    tmp_max = 28.0
+    if temperature >= tmp_max:
+        warning_label.config(text=f"Warning: Temperature exceeds {tmp_max}°C!")
+    else:
+        warning_label.config(text="")
 
 # Create the GUI
 root = tk.Tk()
@@ -56,19 +94,6 @@ root.geometry("600x500")
 # Add a label for the warning in the GUI
 warning_label = tk.Label(root, text="", font=("Arial", 14), fg="red")
 warning_label.pack(pady=10)
-
-def update_thermometer(temperature):
-    """Update the thermometer bar based on the current temperature."""
-    # Calculate the height of the thermometer based on the temperature (0 to 100)
-    height = max(0, min(100, temperature))  # Limit the value between 0 and 100
-    thermometer_canvas.coords(thermometer_fill, 10, 150 - height, 40, 150)
-    thermometer_label.config(text=f"{temperature:.1f}°C")
-    
-    # Display a warning if the temperature exceeds 32°C
-    if temperature > 27.0:
-        warning_label.config(text="Warning: Temperature exceeds 32°C!")
-    else:
-        warning_label.config(text="")
 
 # Create a frame for organizing the widgets
 frame = tk.Frame(root, padx=20, pady=20)
@@ -105,6 +130,10 @@ toggle_lamp_button.grid(row=2, column=0, padx=10, pady=10)
 # Toggle Plug Button
 toggle_plug_button = tk.Button(frame, text="Toggle Plug", command=toggle_plug, font=("Arial", 14), bg="#FF5733", fg="white", relief="raised", height=2, width=15)
 toggle_plug_button.grid(row=2, column=1, padx=10, pady=10)
+
+# Lamp State Label
+lamp_state_label = tk.Label(frame, text=f"Lamp State: {lamp_state}", font=("Arial", 14))
+lamp_state_label.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
 
 # Create the thermometer display
 thermometer_frame = tk.Frame(root, padx=20, pady=20)
