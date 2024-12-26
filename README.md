@@ -8,7 +8,7 @@
 - [Mohamed Hany Mohamed Fadel](https://github.com/Mohamed-Fadel222)
 
 ## Project Description
-The goal of this project is to develop a small prototype for a Python-based home appliances control system. The system will allow users to control home appliances and monitor certain environmental conditions through a Tkinter desktop application.
+The goal of this project is to develop a prototype for a Python-based home appliances control system. The system will allow users to control home appliances and monitor certain environmental conditions through a Tkinter desktop application.
 
 ### Features:
 1. **Python Desktop Application Development**:
