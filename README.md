@@ -1,5 +1,12 @@
 # Home Appliances Control Project
 
+# Contributors
+> - [Saifeldin Mohamed Hatem](https://github.com/Trimbex)
+> - [Mohamed Ahmed Esmat](https://github.com/Mohamed-Ahmed-Esmat)
+> - [Youssef Mahmud](https://github.com/youssef123tt)
+> - [Omar Ahmed Salah](https://github.com/Omar073)
+> - [Mohamed Hany Mohamed Fadel](https://github.com/Mohamed-Fadel222)
+
 ## Project Description
 
 The goal of this project is to develop a small prototype for a mobile-based home appliances control system. The system will allow users to control home appliances and monitor certain environmental conditions remotely via an Android application.
